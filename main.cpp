@@ -8,6 +8,6 @@ int main(int argc, char *argv[])
     MainWindow w;
     w.show();
     return a.exec();
-    //test
-    std::cout << "Hello World" << std::endl;
+    //test2
+    //std::cout << "Hello World" << std::endl;
 }
