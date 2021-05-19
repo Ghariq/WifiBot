@@ -11,6 +11,5 @@ int main(int argc, char *argv[])
     //test2
     //std::cout << "Hello World" << std::endl;
     //test clemeu
-    // oué
     //mange tes morts
 }
