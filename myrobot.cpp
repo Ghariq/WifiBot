@@ -1,18 +1,19 @@
 // myrobot.cpp
 
 #include "myrobot.h"
+#include <iostream>
 
 MyRobot::MyRobot(QObject *parent) : QObject(parent) {
     DataToSend.resize(9);
     DataToSend[0] = 0xFF;
     DataToSend[1] = 0x07;
-    DataToSend[2] = 0x0;
-    DataToSend[3] = 0x0;
-    DataToSend[4] = 0x0;
-    DataToSend[5] = 0x0;
-    DataToSend[6] = 0x0;
-    DataToSend[7] = 0x0;
-    DataToSend[8] = 0x0;
+    DataToSend[2] = 0x0; // speed_front_left_wheel              // check devant et derriere !!!!!!!!!!!!
+    DataToSend[3] = 0x0; // speed_behind_left_wheel
+    DataToSend[4] = 0x0; // speed_front_right_wheel
+    DataToSend[5] = 0x0; // speed_behind_right_wheel
+    DataToSend[6] = 0x0; // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! pas compris
+    DataToSend[7] = 0x0; // NOT USED ON TCP
+    DataToSend[8] = 0x0; // NOT USED ON TCP
     DataReceived.resize(21);
     TimerEnvoi = new QTimer();
     // setup signal and slot
@@ -69,8 +70,16 @@ void MyRobot::MyTimerSlot() {
     Mutex.unlock();
 }
 
-void MyRobot::avancer()
+void MyRobot::forward()
 {
+    const char max = 0xf0; // = 240 tics max
 
+    for (int i=2;i<=5;i++)
+    {
+        if (DataToSend[i]<max)
+        {
+            DataToSend[i]++;
+        }
+    }
 }
 

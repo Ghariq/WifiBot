@@ -14,10 +14,12 @@ public:
     explicit MyRobot(QObject *parent = 0);
     void doConnect();
     void disConnect();
+
     QByteArray DataToSend;
     QByteArray DataReceived;
     QMutex Mutex;
-    void avancer();
+
+    void forward();
 
 signals:
     void updateUI(const QByteArray Data);
