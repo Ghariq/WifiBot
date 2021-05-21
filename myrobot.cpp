@@ -1,18 +1,19 @@
 // myrobot.cpp
 
 #include "myrobot.h"
+#include <iostream>
 
 MyRobot::MyRobot(QObject *parent) : QObject(parent) {
     DataToSend.resize(9);
     DataToSend[0] = 0xFF;
     DataToSend[1] = 0x07;
-    DataToSend[2] = 0x0;
-    DataToSend[3] = 0x0;
-    DataToSend[4] = 0x0;
-    DataToSend[5] = 0x0;
-    DataToSend[6] = 0x0;
-    DataToSend[7] = 0x0;
-    DataToSend[8] = 0x0;
+    DataToSend[2] = 0x0; // speed_front_left_wheel              // check devant et derriere !!!!!!!!!!!!
+    DataToSend[3] = 0x0; // speed_behind_left_wheel
+    DataToSend[4] = 0x0; // speed_front_right_wheel
+    DataToSend[5] = 0x0; // speed_behind_right_wheel
+    DataToSend[6] = 0x0; // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! pas compris
+    DataToSend[7] = 0x0; // NOT USED ON TCP
+    DataToSend[8] = 0x0; // NOT USED ON TCP
     DataReceived.resize(21);
     TimerEnvoi = new QTimer();
     // setup signal and slot
@@ -28,7 +29,7 @@ void MyRobot::doConnect() {
     connect(socket, SIGNAL(readyRead()),this, SLOT(readyRead()));
     qDebug() << "connecting..."; // this is not blocking call
     //socket->connectToHost("LOCALHOST", 15020);
-    socket->connectToHost("192.168.1.106", 15020); // connection to wifibot
+    socket->connectToHost("192.168.1.11", 15020); // connection to wifibot
     // we need to wait...
     if(!socket->waitForConnected(5000)) {
         qDebug() << "Error: " << socket->errorString();
@@ -67,5 +68,18 @@ void MyRobot::MyTimerSlot() {
     while(Mutex.tryLock());
     socket->write(DataToSend);
     Mutex.unlock();
+}
+
+void MyRobot::forward()
+{
+    const char max = 0xf0; // = 240 tics max
+
+    for (int i=2;i<=5;i++)
+    {
+        if (DataToSend[i]<max)
+        {
+            DataToSend[i]++;
+        }
+    }
 }
 
