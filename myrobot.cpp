@@ -11,7 +11,7 @@ MyRobot::MyRobot(QObject *parent) : QObject(parent) {
     DataToSend[3] = 0x0; // speed_behind_left_wheel
     DataToSend[4] = 0x0; // speed_front_right_wheel
     DataToSend[5] = 0x0; // speed_behind_right_wheel
-    DataToSend[6] = 0x0; // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! pas compris
+    DataToSend[6] = 0x0; // 80/0x50 : devant, 0/0x0 : recule, 64/0x40 : gauche sur place, 16/0x10 : droit sur place
     DataToSend[7] = 0x0; // NOT USED ON TCP
     DataToSend[8] = 0x0; // NOT USED ON TCP
     DataReceived.resize(21);
@@ -72,14 +72,63 @@ void MyRobot::MyTimerSlot() {
 
 void MyRobot::forward()
 {
-    const char max = 0xf0; // = 240 tics max
+    const char v_max = 0xf0; // = 240 tics max
+    while(Mutex.tryLock());
 
     for (int i=2;i<=5;i++)
     {
-        if (DataToSend[i]<max)
+        if (DataToSend[i]<v_max)
         {
             DataToSend[i]++;
         }
     }
+    DataToSend[6]=0x50;
+    short crcfull = Crc16(DataToSend, 7);
+    DataToSend[7]=crcfull;
+    DataToSend[8]=crcfull >> 8;
+
+    Mutex.unlock();
 }
 
+void MyRobot::backward()
+{
+    const char v_min = 0x0; // = 0 tics min
+    while(Mutex.tryLock());
+
+    for (int i=2;i<=5;i++)
+    {
+        if (DataToSend[i]>v_min)
+        {
+            DataToSend[i]--;
+        }
+    }
+    DataToSend[6]=0x50;
+    short crcfull = Crc16(DataToSend, 7);
+    DataToSend[7]=crcfull;
+    DataToSend[8]=crcfull >> 8;
+
+    Mutex.unlock();
+}
+
+short MyRobot::Crc16(QByteArray Adresse_tab , unsigned char Taille_max)
+{
+    unsigned int Crc = 0xFFFF;
+    unsigned int Polynome = 0xA001;
+    unsigned int CptOctet = 0;
+    unsigned int CptBit = 0;
+    unsigned int Parity= 0;
+
+    Crc = 0xFFFF;
+    Polynome = 0xA001;
+    for ( CptOctet= 0 ; CptOctet < Taille_max ; CptOctet++)
+    {
+        Crc ^= ( Adresse_tab[CptOctet]);
+        for ( CptBit = 0; CptBit <= 7 ; CptBit++)
+        {
+            Parity= Crc;
+            Crc >>= 1;
+            if (Parity%2 == true) Crc ^= Polynome;
+        }
+    }
+    return(Crc);
+}

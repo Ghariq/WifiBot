@@ -1,6 +1,9 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QMessageBox>
+#include "myrobot.h"
+
+extern MyRobot christobal;
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -17,13 +20,13 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_forward_clicked()
 {
-    //QMessageBox::information(this, "title", "Hello world");
-    qDebug() << "yes";
+    qDebug() << "avance christobal !";
+    christobal.forward();
 }
 
 
 void MainWindow::on_backward_clicked()
 {
-    //QMessageBox::information(this, "title", "Hello world");
-    qDebug() << "yes";
+    qDebug() << "recule christobal !";
+    christobal.backward();
 }

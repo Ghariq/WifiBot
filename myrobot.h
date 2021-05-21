@@ -20,6 +20,8 @@ public:
     QMutex Mutex;
 
     void forward();
+    void backward();
+    short Crc16(QByteArray Adresse_tab , unsigned char Taille_max);
 
 signals:
     void updateUI(const QByteArray Data);
