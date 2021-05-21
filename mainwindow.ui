@@ -17,31 +17,31 @@
    <widget class="QWidget" name="gridLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>260</x>
-      <y>170</y>
-      <width>297</width>
-      <height>131</height>
+      <x>90</x>
+      <y>90</y>
+      <width>611</width>
+      <height>371</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout">
-     <item row="0" column="0">
-      <widget class="QPushButton" name="forward">
-       <property name="text">
-        <string>Avancer</string>
-       </property>
-       <property name="autoRepeat">
-        <bool>false</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="0">
+     <item row="3" column="0">
       <widget class="QPushButton" name="backward">
        <property name="text">
         <string>PushButton</string>
        </property>
       </widget>
      </item>
-     <item row="1" column="0">
+     <item row="0" column="0">
+      <widget class="QPushButton" name="forward">
+       <property name="text">
+        <string>Avancer</string>
+       </property>
+       <property name="autoRepeat">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
         <widget class="QPushButton" name="test_3">

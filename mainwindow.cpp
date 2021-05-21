@@ -17,11 +17,13 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_forward_clicked()
 {
-    QMessageBox::information(this, "title", "Hello world");
+    //QMessageBox::information(this, "title", "Hello world");
+    qDebug() << "yes";
 }
 
 
 void MainWindow::on_backward_clicked()
 {
-    QMessageBox::information(this, "title", "Hello world");
+    //QMessageBox::information(this, "title", "Hello world");
+    qDebug() << "yes";
 }
