@@ -3,8 +3,6 @@
 #include <QMessageBox>
 #include "myrobot.h"
 
-<<<<<<< HEAD
-
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
@@ -13,16 +11,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     christobal = new MyRobot (this);
     connect(ui->v_max_slider, SIGNAL(valueChanged(int)), ui->v_max_aff, SLOT(display(int)));
     connect(ui->v_max_slider, SIGNAL(valueChanged(int)), christobal, SLOT(setMaxSpeed(int)));
-=======
-extern MyRobot christobal;
-
-MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
-{
-    ui->setupUi(this);
-    setWindowTitle("Aller let's go le WifiBot");
->>>>>>> 5ceaa2168f8ac92b753591c572b643fc29f162c4
 }
 
 MainWindow::~MainWindow()
@@ -30,7 +18,6 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-<<<<<<< HEAD
 void MainWindow::on_forward_pressed()
 {
     christobal->forward();
@@ -93,18 +80,3 @@ void MainWindow::on_middle_pressed()
 {
     christobal->beyblade();
 }
-
-=======
-void MainWindow::on_forward_clicked()
-{
-    qDebug() << "avance christobal !";
-    christobal.forward();
-}
-
-
-void MainWindow::on_backward_clicked()
-{
-    qDebug() << "recule christobal !";
-    christobal.backward();
-}
->>>>>>> 5ceaa2168f8ac92b753591c572b643fc29f162c4
