@@ -11,7 +11,10 @@ int main(int argc, char *argv[])
     MainWindow w;
     w.show();
 
+<<<<<<< HEAD
+=======
     christobal.doConnect();
 
+>>>>>>> 5ceaa2168f8ac92b753591c572b643fc29f162c4
     return a.exec();
 }
