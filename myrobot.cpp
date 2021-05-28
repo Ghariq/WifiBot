@@ -86,22 +86,16 @@ void MyRobot::MyTimerSlot()
     {
         nb_timer_to_wait--;
     } else decreasedSpeed();
-    qDebug() << "connecting..."; // this is not blocking call
-    //socket->connectToHost("LOCALHOST", 15020);
-    socket->connectToHost("192.168.1.11", 15020); // connection to wifibot
-    // we need to wait...
-    if(!socket->waitForConnected(5000)) {
-        qDebug() << "Error: " << socket->errorString();
-        return;
-    }
-    TimerEnvoi->start(75);
-
+    while (Mutex.try_lock());
+    socket->write(DataToSend);
+    socket->readAll();
+    Mutex.unlock();
 }
 
 // Fonction move avant/arriere
 void MyRobot::move()
 {
-    nb_timer_to_wait=2; //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!atention pb de rapidité de timer
+    nb_timer_to_wait=2;
     while(Mutex.tryLock()); // On attend la libération du Mutex
 
     if (!_beyblade)
@@ -115,26 +109,26 @@ void MyRobot::move()
         for (int i=1; i<3; i++) // On augmente la vitesse
         {
             int nb=2*i;
-            if ((unsigned char)DataToSend[nb]<_max_speed && (go_forward || go_backward)) // Si on a pas atteind la vitesse max et que l'on veut avancer
+            if ((unsigned char)DataToSend[nb]<(unsigned char)_max_speed && (go_forward || go_backward)) // Si on a pas atteind la vitesse max et que l'on veut avancer
             {
                 if ((unsigned char)DataToSend[nb]<(unsigned char)70) // Si on a une vitesse inférieure à 70 on se place à 70
                 {
                     DataToSend[nb]=(unsigned char)70;
                 } else DataToSend[nb]+=(unsigned char)10; // On augmente de 10 la vitesse
-                if ((unsigned char)DataToSend[nb]>_max_speed) // Si on a dépassé la vitesse max
+                if ((unsigned char)DataToSend[nb]>(unsigned char)_max_speed) // Si on a dépassé la vitesse max
                 {
-                    DataToSend[nb]=_max_speed;
+                    DataToSend[nb]=(unsigned char)_max_speed;
                 }
             }
         }
-        // Pour tourner ou choisir le sens de toupie
+        /*// Pour tourner ou choisir le sens de toupie
         if (!(go_left && go_right)) // Si on a pas les 2 touches en même temps
         {
             if (go_left) // Si il faut aller à gauche
             {
                 DataToSend[2]/=4;
             } else DataToSend[4]/=4;
-        }
+        }*/
 
         // Direction
         if (go_backward) // Si on veut aller vers l'arriere
@@ -144,8 +138,8 @@ void MyRobot::move()
     }
     else
     {
-        DataToSend[2]=(unsigned char)240;
-        DataToSend[4]=(unsigned char)240;
+        DataToSend[2]=(unsigned char)_max_speed;
+        DataToSend[4]=(unsigned char)_max_speed;
         if (go_right)
         {
             DataToSend[6]=16;
@@ -153,7 +147,6 @@ void MyRobot::move()
     }
     go_left = false;
     go_right = false;
-    _beyblade = false;
 
     // Calcul CRC
     short crcfull = Crc16(DataToSend);
@@ -174,6 +167,7 @@ void MyRobot::decreasedSpeed()
     {
         DataToSend[4]=0;
     }
+    _beyblade = false;
 }
 
 // Fonction avancer
@@ -235,12 +229,12 @@ bool MyRobot::isConnected()
 // Retourne la vitesse du plus rapide
 int MyRobot::getSpeed()
 {
-    int speed;
+    unsigned char speed;
     if ((unsigned char) DataToSend[2]< (unsigned char) DataToSend[4])
     {
-        speed = (int) DataToSend[4];
-    } else speed = (int) DataToSend [2];
-    return speed;
+        speed = (unsigned char) DataToSend[4];
+    } else speed = (unsigned char) DataToSend [2];
+    return (int) speed;
 }
 
 // Change la vitesse max
@@ -250,6 +244,7 @@ void MyRobot::setMaxSpeed(int max_speed)
     {
         _max_speed=(unsigned char) max_speed;
     }
+    qDebug() << _max_speed;
 }
 
 void MyRobot::beyblade()
