@@ -21,8 +21,10 @@ public:
 private slots:
     void on_forward_pressed();
     void on_backward_pressed();
-    void on_left_pressed();
-    void on_right_pressed();
+    void on_forward_left_pressed();
+    void on_forward_right_pressed();
+    void on_backward_left_pressed();
+    void on_backward_right_pressed();
     void on_connexion_clicked();
     void on_disconnect_clicked();
     void on_middle_pressed();

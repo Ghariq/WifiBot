@@ -122,14 +122,15 @@ void MyRobot::move()
             }
         }
 
-        /*// Pour tourner ou choisir le sens de toupie
-        if (!(go_left && go_right)) // Si on a pas les 2 touches en même temps
+        // Pour tourner
+        if (go_left) // Si il faut aller à gauche
         {
-            if (go_left) // Si il faut aller à gauche
-            {
-                DataToSend[2]/=4;
-            } else DataToSend[4]/=4;
-        }*/
+            DataToSend[2]= DataToSend[2]/4;
+        }
+        else if (go_right) // Si il faut aller à droite
+        {
+            DataToSend[4]= DataToSend[4]/4;
+        }
 
         // Direction
         if (go_backward) // Si on veut aller vers l'arriere
@@ -146,6 +147,8 @@ void MyRobot::move()
             DataToSend[6]=16;
         } else DataToSend[6]=64;
     }
+
+    // Reset des variables de déplacement
     go_left = false;
     go_right = false;
     go_forward=false;
@@ -187,18 +190,24 @@ void MyRobot::backward()
     move();
 }
 
-// Fonction droite
-void MyRobot::left()
+// Fonction gauche
+void MyRobot::left(bool go_forward)
 {
     go_left=true;
-    move();
+    if (go_forward)
+    {
+        forward();
+    } else backward();
 }
 
-// Fonction gauche
-void MyRobot::right()
+// Fonction droite
+void MyRobot::right(bool go_forward)
 {
     go_right=true;
-    move();
+    if (go_forward)
+    {
+        forward();
+    } else backward();
 }
 
 // Fonction calcul du CRC

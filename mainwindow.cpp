@@ -30,14 +30,24 @@ void MainWindow::on_backward_pressed()
     ui->vitesse_aff->display(christobal->getSpeed());
 }
 
-void MainWindow::on_left_pressed()
+void MainWindow::on_forward_left_pressed()
 {
-    christobal->left();
+    christobal->left(true);
 }
 
-void MainWindow::on_right_pressed()
+void MainWindow::on_forward_right_pressed()
 {
-    christobal->right();
+    christobal->right(true);
+}
+
+void MainWindow::on_backward_left_pressed()
+{
+    christobal->left(false);
+}
+
+void MainWindow::on_backward_right_pressed()
+{
+    christobal->right(false);
 }
 
 void MainWindow::on_connexion_clicked()
@@ -63,6 +73,10 @@ void MainWindow::display(bool connected)
 {
     ui->forward->setEnabled(connected);
     ui->backward->setEnabled(connected);
+    ui->forward_left->setEnabled(connected);
+    ui->forward_right->setEnabled(connected);
+    ui->backward_left->setEnabled(connected);
+    ui->backward_right->setEnabled(connected);
     ui->left->setEnabled(connected);
     ui->right->setEnabled(connected);
     ui->middle->setEnabled(connected);
@@ -70,6 +84,8 @@ void MainWindow::display(bool connected)
     ui->v_max_aff->setEnabled(connected);
     ui->v_max_label->setEnabled(connected);
     ui->v_max_slider->setEnabled(connected);
+    ui->vitesse_aff->setEnabled(connected);
+    ui->vitesse_label->setEnabled(connected);
 
     ui->connexion_ok->setChecked(connected);
 

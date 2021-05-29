@@ -22,8 +22,9 @@ public:
     void decreasedSpeed();
     void forward();
     void backward();
-    void left();
-    void right();
+    void left(bool go_forward);
+    void right(bool go_forward);
+
     quint16 Crc16(QByteArray Adresse_tab);
     bool isConnected();
     int getSpeed();
