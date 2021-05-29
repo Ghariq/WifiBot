@@ -10,7 +10,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     display(false);
     christobal = new MyRobot (this);
     connect(ui->v_max_slider, SIGNAL(valueChanged(int)), ui->v_max_aff, SLOT(display(int)));
-    connect(ui->v_max_slider, SIGNAL(valueChanged(int)), christobal, SLOT(setMaxSpeed(int)));
+    connect(ui->v_max_slider, SIGNAL(valueChanged(int)), this->christobal, SLOT(setMaxSpeed(int)));
 }
 
 MainWindow::~MainWindow()

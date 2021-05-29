@@ -27,7 +27,6 @@ public:
     quint16 Crc16(QByteArray Adresse_tab);
     bool isConnected();
     int getSpeed();
-    void setMaxSpeed(int max_speed);
     void beyblade();
 
 signals:
@@ -39,6 +38,7 @@ public slots:
     void bytesWritten(qint64 bytes);
     void readyRead();
     void MyTimerSlot();
+    void setMaxSpeed(int max_speed);
 
 private:
     QTcpSocket *socket;
