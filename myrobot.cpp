@@ -96,12 +96,6 @@ void MyRobot::move()
 
     if (!_beyblade)
     {
-        /*// Vitesse des 2 parties
-        if (DataToSend[2]>DataToSend[4]) // Si la vitesse gauche est > à vitesse droite
-        {
-            DataToSend[4]=((unsigned char)DataToSend[2]);
-        } else DataToSend[2]=((unsigned char)DataToSend[4]);*/
-
         for (int i=1; i<3; i++) // On augmente la vitesse
         {
             int nb=2*i;
@@ -155,6 +149,8 @@ void MyRobot::move()
     short crcfull = Crc16(DataToSend);
     DataToSend[7]=crcfull;
     DataToSend[8]=crcfull >> 8;
+
+    getSpeed();
 
     Mutex.unlock();
 }
@@ -248,6 +244,7 @@ void MyRobot::setMaxSpeed(int max_speed)
     }
 }
 
+// Fait tourner le robot sur lui même
 void MyRobot::beyblade()
 {
     _beyblade=true;
