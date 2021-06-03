@@ -28,9 +28,11 @@ private slots:
     void on_disconnect_clicked();
     void on_middle_pressed();
     void display(bool connected);
+    void displayCamera (bool display);
 
 private:
     Ui::MainWindow *ui;
     MyRobot *christobal;
+    QWebEngineView *view;
 };
 #endif // MAINWINDOW_H

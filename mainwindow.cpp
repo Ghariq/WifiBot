@@ -1,6 +1,7 @@
+#include <QMessageBox>
+#include <QWebEngineView>
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <QMessageBox>
 #include "myrobot.h"
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
@@ -8,10 +9,17 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->setupUi(this);
     setWindowTitle("Christobal");
     display(false);
+
     christobal = new MyRobot (this);
+    view = new QWebEngineView (this);
+    ui->camera->addWidget(view);
+    view->load(QUrl("http://192.168.1.11:8080/?action=stream"));
+    view->hide();
+
     connect(ui->v_max_slider, SIGNAL(valueChanged(int)), ui->v_max_aff, SLOT(display(int)));
     connect(ui->v_max_slider, SIGNAL(valueChanged(int)), this->christobal, SLOT(setMaxSpeed(int)));
     connect(this->christobal, SIGNAL(changeConnectState(bool)), this, SLOT(display(bool)));
+    connect(this->christobal, SIGNAL(changeConnectState(bool)), this, SLOT(displayCamera(bool)));
 }
 
 MainWindow::~MainWindow()
@@ -89,4 +97,12 @@ void MainWindow::display(bool connected)
     ui->connexion_ok->setChecked(connected);
 
     ui->connexion->setEnabled(!connected);
+}
+
+void MainWindow::displayCamera(bool display)
+{
+    if (display)
+    {
+        view->show();
+    } else view->hide();
 }
