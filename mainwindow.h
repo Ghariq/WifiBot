@@ -16,7 +16,6 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-    void display(bool connected);
 
 private slots:
     void on_forward_pressed();
@@ -28,6 +27,7 @@ private slots:
     void on_connexion_clicked();
     void on_disconnect_clicked();
     void on_middle_pressed();
+    void display(bool connected);
 
 private:
     Ui::MainWindow *ui;

@@ -26,12 +26,12 @@ public:
     void right(bool go_forward);
 
     quint16 Crc16(QByteArray Adresse_tab);
-    bool isConnected();
     int getSpeed();
     void beyblade();
 
 signals:
     void updateUI(const QByteArray Data);
+    void changeConnectState(const bool connected);
 
 public slots:
     void connected();
@@ -48,7 +48,6 @@ private:
     const unsigned char v_max = 240; // = 240 tics max
     unsigned char _max_speed;
 
-    bool is_connected;
     int nb_timer_to_wait;
 
     bool go_forward;

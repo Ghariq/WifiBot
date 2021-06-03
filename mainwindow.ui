@@ -191,6 +191,12 @@
            <property name="text">
             <string>↖</string>
            </property>
+           <property name="autoRepeat">
+            <bool>true</bool>
+           </property>
+           <property name="autoRepeatDelay">
+            <number>100</number>
+           </property>
           </widget>
          </item>
          <item>
@@ -216,6 +222,12 @@
           <widget class="QPushButton" name="forward_right">
            <property name="text">
             <string>↗</string>
+           </property>
+           <property name="autoRepeat">
+            <bool>true</bool>
+           </property>
+           <property name="autoRepeatDelay">
+            <number>100</number>
            </property>
           </widget>
          </item>
@@ -289,6 +301,12 @@
            <property name="text">
             <string>↙</string>
            </property>
+           <property name="autoRepeat">
+            <bool>true</bool>
+           </property>
+           <property name="autoRepeatDelay">
+            <number>100</number>
+           </property>
           </widget>
          </item>
          <item>
@@ -314,6 +332,12 @@
           <widget class="QPushButton" name="backward_right">
            <property name="text">
             <string>↘</string>
+           </property>
+           <property name="autoRepeat">
+            <bool>true</bool>
+           </property>
+           <property name="autoRepeatDelay">
+            <number>100</number>
            </property>
           </widget>
          </item>

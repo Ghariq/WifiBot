@@ -21,7 +21,6 @@ MyRobot::MyRobot(QObject *parent) : QObject(parent) {
 
     // setup signal and slot
     connect(TimerEnvoi, SIGNAL(timeout()), this, SLOT(MyTimerSlot())); //Send data to wifibot timer
-    is_connected=false;
     _beyblade=false;
     go_backward=false;
     go_forward=false;
@@ -51,19 +50,18 @@ void MyRobot::disConnect()
 {
     TimerEnvoi->stop();
     socket->close();
-    is_connected=false;
 }
 
 // Quand connecté :
 void MyRobot::connected() {
     qDebug() << "Connected"; // Hey server, tell me about you.
-    is_connected = true;
+    emit changeConnectState(true);
 }
 
 // Quand déconnecté :
 void MyRobot::disconnected() {
     qDebug() << "Disconnected";
-    is_connected=false;
+    emit changeConnectState(false);
 }
 
 // Quand on écrit X octets :
@@ -103,8 +101,8 @@ void MyRobot::move()
         // Vitesse des 2 parties
         if (DataToSend[2]>DataToSend[4]) // Si la vitesse gauche est > à vitesse droite
         {
-            DataToSend[4]=DataToSend[2];
-        } else DataToSend[2]=DataToSend[4];
+            DataToSend[4]=((unsigned char)DataToSend[2]);
+        } else DataToSend[2]=((unsigned char)DataToSend[4]);
 
         for (int i=1; i<3; i++) // On augmente la vitesse
         {
@@ -125,14 +123,14 @@ void MyRobot::move()
         // Pour tourner
         if (go_left) // Si il faut aller à gauche
         {
-            DataToSend[2]= DataToSend[2]/4;
+            DataToSend[2]= ((unsigned char)DataToSend[2]/4);
         }
         else if (go_right) // Si il faut aller à droite
         {
-            DataToSend[4]= DataToSend[4]/4;
+            DataToSend[4]= ((unsigned char)DataToSend[4]/4);
         }
 
-        // Direction
+        // Sens des roues
         if (go_backward) // Si on veut aller vers l'arriere
         {
             DataToSend[6]=0x0;
@@ -230,12 +228,6 @@ quint16 MyRobot::Crc16(QByteArray tab)
         }
     }
     return crc;
-}
-
-// Retourne l'état connecté/déconnecté
-bool MyRobot::isConnected()
-{
-    return is_connected;
 }
 
 // Retourne la vitesse du plus rapide
