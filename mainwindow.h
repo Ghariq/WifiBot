@@ -29,6 +29,9 @@ private slots:
     void on_middle_pressed();
     void display(bool connected);
     void displayCamera (bool display);
+    void reloadDisplay(QByteArray retour);
+    void changeBat(unsigned char bat);
+    void reloadSpeed (int speed);
 
 private:
     Ui::MainWindow *ui;

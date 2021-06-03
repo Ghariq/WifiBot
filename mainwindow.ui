@@ -83,7 +83,7 @@
     <property name="geometry">
      <rect>
       <x>490</x>
-      <y>210</y>
+      <y>130</y>
       <width>291</width>
       <height>211</height>
      </rect>
@@ -350,13 +350,47 @@
    <widget class="QWidget" name="verticalLayoutWidget_2">
     <property name="geometry">
      <rect>
-      <x>70</x>
-      <y>130</y>
-      <width>261</width>
-      <height>241</height>
+      <x>90</x>
+      <y>140</y>
+      <width>251</width>
+      <height>191</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="camera"/>
+   </widget>
+   <widget class="QWidget" name="verticalLayoutWidget_3">
+    <property name="geometry">
+     <rect>
+      <x>490</x>
+      <y>360</y>
+      <width>291</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="batterieLayout">
+     <item>
+      <widget class="QLabel" name="batterielabel">
+       <property name="font">
+        <font>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Batterie :</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QProgressBar" name="batterieBar">
+       <property name="value">
+        <number>0</number>
+       </property>
+       <property name="textVisible">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">

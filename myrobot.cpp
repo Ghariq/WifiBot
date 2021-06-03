@@ -71,10 +71,8 @@ void MyRobot::bytesWritten(qint64 bytes) {
 
 // Lecture de données
 void MyRobot::readyRead() {
-    //qDebug() << "Reading..."; // read the data from the socket
     DataReceived = socket->readAll();
     emit updateUI(DataReceived);
-    //qDebug() << DataReceived[0] << DataReceived[1] << DataReceived[2];
 }
 
 // A chaque timer :
@@ -98,11 +96,11 @@ void MyRobot::move()
 
     if (!_beyblade)
     {
-        // Vitesse des 2 parties
+        /*// Vitesse des 2 parties
         if (DataToSend[2]>DataToSend[4]) // Si la vitesse gauche est > à vitesse droite
         {
             DataToSend[4]=((unsigned char)DataToSend[2]);
-        } else DataToSend[2]=((unsigned char)DataToSend[4]);
+        } else DataToSend[2]=((unsigned char)DataToSend[4]);*/
 
         for (int i=1; i<3; i++) // On augmente la vitesse
         {
@@ -123,11 +121,11 @@ void MyRobot::move()
         // Pour tourner
         if (go_left) // Si il faut aller à gauche
         {
-            DataToSend[2]= ((unsigned char)DataToSend[2]/4);
+            DataToSend[2]= (unsigned char)(((unsigned char)DataToSend[4])-((unsigned char)70));
         }
         else if (go_right) // Si il faut aller à droite
         {
-            DataToSend[4]= ((unsigned char)DataToSend[4]/4);
+            DataToSend[4]= (unsigned char)(((unsigned char)DataToSend[2])-((unsigned char)70));
         }
 
         // Sens des roues
@@ -231,14 +229,14 @@ quint16 MyRobot::Crc16(QByteArray tab)
 }
 
 // Retourne la vitesse du plus rapide
-int MyRobot::getSpeed()
+void MyRobot::getSpeed()
 {
     unsigned char speed;
     if ((unsigned char) DataToSend[2]< (unsigned char) DataToSend[4])
     {
         speed = (unsigned char) DataToSend[4];
     } else speed = (unsigned char) DataToSend [2];
-    return (int) speed;
+    emit changeSpeed((int) speed);
 }
 
 // Change la vitesse max
@@ -248,7 +246,6 @@ void MyRobot::setMaxSpeed(int max_speed)
     {
         _max_speed=(unsigned char) max_speed;
     }
-    qDebug() << _max_speed;
 }
 
 void MyRobot::beyblade()

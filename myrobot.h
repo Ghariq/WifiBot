@@ -26,12 +26,13 @@ public:
     void right(bool go_forward);
 
     quint16 Crc16(QByteArray Adresse_tab);
-    int getSpeed();
+    void getSpeed();
     void beyblade();
 
 signals:
     void updateUI(const QByteArray Data);
     void changeConnectState(const bool connected);
+    void changeSpeed(const int speed);
 
 public slots:
     void connected();

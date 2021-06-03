@@ -20,6 +20,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     connect(ui->v_max_slider, SIGNAL(valueChanged(int)), this->christobal, SLOT(setMaxSpeed(int)));
     connect(this->christobal, SIGNAL(changeConnectState(bool)), this, SLOT(display(bool)));
     connect(this->christobal, SIGNAL(changeConnectState(bool)), this, SLOT(displayCamera(bool)));
+    connect(this->christobal, SIGNAL(updateUI(QByteArray)), this, SLOT(reloadDisplay(QByteArray)));
+    connect(this->christobal, SIGNAL(changeSpeed(int)), this, SLOT(reloadSpeed(int)));
 }
 
 MainWindow::~MainWindow()
@@ -30,13 +32,11 @@ MainWindow::~MainWindow()
 void MainWindow::on_forward_pressed()
 {
     christobal->forward();
-    ui->vitesse_aff->display(christobal->getSpeed());
 }
 
 void MainWindow::on_backward_pressed()
 {
     christobal->backward();
-    ui->vitesse_aff->display(christobal->getSpeed());
 }
 
 void MainWindow::on_forward_left_pressed()
@@ -93,6 +93,8 @@ void MainWindow::display(bool connected)
     ui->v_max_slider->setEnabled(connected);
     ui->vitesse_aff->setEnabled(connected);
     ui->vitesse_label->setEnabled(connected);
+    ui->batterieBar->setEnabled(connected);
+    ui->batterielabel->setEnabled(connected);
 
     ui->connexion_ok->setChecked(connected);
 
@@ -105,4 +107,31 @@ void MainWindow::displayCamera(bool display)
     {
         view->show();
     } else view->hide();
+}
+
+void MainWindow::reloadDisplay(QByteArray retour)
+{
+    changeBat(retour[2]); // batterie
+}
+
+void MainWindow::changeBat(unsigned char bat)
+{
+    int bat_int= (int) bat;
+    bat_int-=3;
+    if (bat_int > 124)
+    {
+        bat_int=124;
+    }
+    else if (bat_int<0)
+    {
+        bat_int=0;
+    }
+    bat_int=bat_int*100/124;
+    ui->batterieBar->setValue(bat_int);
+}
+
+void MainWindow::reloadSpeed(int speed)
+{
+    qDebug() << "test";
+    ui->vitesse_aff->display(speed);
 }
