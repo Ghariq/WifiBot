@@ -2,6 +2,9 @@
 <ui version="4.0">
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -25,7 +28,7 @@
     </property>
     <layout class="QVBoxLayout" name="deco_connexion">
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <layout class="QHBoxLayout" name="de_connexion_button_layout">
        <item>
         <widget class="QPushButton" name="connexion">
          <property name="text">
@@ -34,7 +37,7 @@
         </widget>
        </item>
        <item>
-        <spacer name="horizontalSpacer">
+        <spacer name="conexion_button_spacer">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
@@ -85,12 +88,12 @@
       <x>490</x>
       <y>130</y>
       <width>291</width>
-      <height>211</height>
+      <height>221</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="verticalLayout_2">
+    <layout class="QVBoxLayout" name="vitesse_deplacement_layout">
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_5">
+      <layout class="QHBoxLayout" name="vitesse_layout">
        <item>
         <layout class="QVBoxLayout" name="vitesse">
          <item>
@@ -170,7 +173,7 @@
       </layout>
      </item>
      <item>
-      <spacer name="verticalSpacer">
+      <spacer name="vitesse_deplacement_spacer">
        <property name="orientation">
         <enum>Qt::Vertical</enum>
        </property>
@@ -185,7 +188,19 @@
      <item>
       <layout class="QVBoxLayout" name="shifting">
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <widget class="QLabel" name="mode">
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Mode : Robot</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="deplacement_haut_layout">
          <item>
           <widget class="QPushButton" name="forward_left">
            <property name="text">
@@ -205,13 +220,13 @@
             <bool>true</bool>
            </property>
            <property name="text">
-            <string>Avancer (↑)</string>
-           </property>
-           <property name="shortcut">
-            <string>Up</string>
+            <string>↑</string>
            </property>
            <property name="autoRepeat">
             <bool>true</bool>
+           </property>
+           <property name="autoExclusive">
+            <bool>false</bool>
            </property>
            <property name="autoRepeatDelay">
             <number>100</number>
@@ -234,17 +249,14 @@
         </layout>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout">
+        <layout class="QHBoxLayout" name="deplacement_milieu_layout">
          <item>
           <widget class="QPushButton" name="left">
            <property name="enabled">
             <bool>true</bool>
            </property>
            <property name="text">
-            <string>Gauche (↻)</string>
-           </property>
-           <property name="shortcut">
-            <string>Left</string>
+            <string>↺</string>
            </property>
            <property name="autoRepeat">
             <bool>true</bool>
@@ -260,10 +272,7 @@
             <bool>true</bool>
            </property>
            <property name="text">
-            <string>Beyblade</string>
-           </property>
-           <property name="shortcut">
-            <string>Space</string>
+            <string>Mode</string>
            </property>
            <property name="autoRepeat">
             <bool>true</bool>
@@ -279,10 +288,7 @@
             <bool>true</bool>
            </property>
            <property name="text">
-            <string>Droite (↺)</string>
-           </property>
-           <property name="shortcut">
-            <string>Right</string>
+            <string>↻</string>
            </property>
            <property name="autoRepeat">
             <bool>true</bool>
@@ -295,7 +301,7 @@
         </layout>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_4">
+        <layout class="QHBoxLayout" name="deplacement_bas_layout">
          <item>
           <widget class="QPushButton" name="backward_left">
            <property name="text">
@@ -315,10 +321,7 @@
             <bool>true</bool>
            </property>
            <property name="text">
-            <string>Reculler (↓)</string>
-           </property>
-           <property name="shortcut">
-            <string>Down</string>
+            <string>↓</string>
            </property>
            <property name="autoRepeat">
             <bool>true</bool>
@@ -350,10 +353,10 @@
    <widget class="QWidget" name="verticalLayoutWidget_2">
     <property name="geometry">
      <rect>
-      <x>90</x>
-      <y>140</y>
-      <width>251</width>
-      <height>191</height>
+      <x>100</x>
+      <y>210</y>
+      <width>271</width>
+      <height>211</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="camera"/>
@@ -391,6 +394,234 @@
       </widget>
      </item>
     </layout>
+   </widget>
+   <widget class="QLabel" name="av_g_attention_label">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>150</y>
+      <width>21</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>25</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>❗</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="av_g_ok_label">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>150</y>
+      <width>21</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>25</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>❕</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="av_d_attention_label">
+    <property name="geometry">
+     <rect>
+      <x>380</x>
+      <y>150</y>
+      <width>21</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>25</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>❗</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="av_d_ok_label">
+    <property name="geometry">
+     <rect>
+      <x>380</x>
+      <y>150</y>
+      <width>21</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>25</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>❕</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="arr_d_attention_label">
+    <property name="geometry">
+     <rect>
+      <x>380</x>
+      <y>420</y>
+      <width>21</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>25</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>❗</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="arr_d_ok_label">
+    <property name="geometry">
+     <rect>
+      <x>380</x>
+      <y>420</y>
+      <width>21</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>25</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>❕</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="arr_g_attention_label">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>420</y>
+      <width>21</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>25</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>❗</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="arr_g_ok_label">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>420</y>
+      <width>21</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>25</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>❕</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="av_g_stop_label">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>140</y>
+      <width>71</width>
+      <height>81</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>25</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>🛑</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="av_d_stop_label">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>370</x>
+      <y>140</y>
+      <width>71</width>
+      <height>81</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>25</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>🛑</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="arr_d_stop_label">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>370</x>
+      <y>410</y>
+      <width>71</width>
+      <height>81</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>25</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>🛑</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="arr_g_stop_label">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>410</y>
+      <width>71</width>
+      <height>81</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>25</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>🛑</string>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">

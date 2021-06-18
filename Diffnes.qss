@@ -678,7 +678,7 @@ QListView::item:hover {
 QCheckBox
 {
 	background-color: transparent;
-    color: #fff;
+    	color: #fff;
 	border: none;
 
 }

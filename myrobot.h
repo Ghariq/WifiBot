@@ -26,8 +26,8 @@ public:
     void right(bool go_forward);
 
     quint16 Crc16(QByteArray Adresse_tab);
-    void getSpeed();
-    void beyblade();
+    int getSpeed();
+    void beyblade(bool right);
 
 signals:
     void updateUI(const QByteArray Data);

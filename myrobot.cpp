@@ -166,6 +166,7 @@ void MyRobot::decreasedSpeed()
     {
         DataToSend[4]=0;
     }
+    getSpeed();
 }
 
 // Fonction avancer
@@ -225,7 +226,7 @@ quint16 MyRobot::Crc16(QByteArray tab)
 }
 
 // Retourne la vitesse du plus rapide
-void MyRobot::getSpeed()
+int MyRobot::getSpeed()
 {
     unsigned char speed;
     if ((unsigned char) DataToSend[2]< (unsigned char) DataToSend[4])
@@ -233,6 +234,7 @@ void MyRobot::getSpeed()
         speed = (unsigned char) DataToSend[4];
     } else speed = (unsigned char) DataToSend [2];
     emit changeSpeed((int) speed);
+    return ((int) speed);
 }
 
 // Change la vitesse max
@@ -245,8 +247,9 @@ void MyRobot::setMaxSpeed(int max_speed)
 }
 
 // Fait tourner le robot sur lui même
-void MyRobot::beyblade()
+void MyRobot::beyblade(bool right)
 {
+    go_right=right;
     _beyblade=true;
     move();
 }

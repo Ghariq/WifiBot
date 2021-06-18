@@ -1,6 +1,7 @@
 #include <iostream>
 #include <QApplication>
 #include <QFile>
+#include <QWidget>
 
 #include "mainwindow.h"
 #include "myrobot.h"
