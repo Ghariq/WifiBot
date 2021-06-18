@@ -7,7 +7,6 @@
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
-
     this->grabKeyboard();
     _forward = false;
     _backward = false;
@@ -24,7 +23,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     view = new QWebEngineView (this);
     ui->camera->addWidget(view);
-    view->load(QUrl("http://192.168.1.11:8080/?action=stream"));
+    view->load(QUrl("http://192.168.1.106:8080/?action=stream"));
     view->hide();
 
     url = new QWebEngineView (this);
@@ -270,10 +269,6 @@ void MainWindow::keyReleaseEvent(QKeyEvent *event)
         {
             _backward=false;
         }
-        else if (event->key() == Qt::Key_Space)
-        {
-            changeMode();
-        }
     }
     send();
 }
@@ -485,20 +480,20 @@ void MainWindow::send()
 
 void MainWindow::cameraUp()
 {
-    url->load(QUrl("http://192.168.1.11:8080/?action=command&dest=0&plugin=0&id=10094853&group=1&value=-255"));
+    url->load(QUrl("http://192.168.1.106:8080/?action=command&dest=0&plugin=0&id=10094853&group=1&value=-255"));
 }
 
 void MainWindow::cameraDown()
 {
-    url->load(QUrl("http://192.168.1.11:8080/?action=command&dest=0&plugin=0&id=10094853&group=1&value=255"));
+    url->load(QUrl("http://192.168.1.106:8080/?action=command&dest=0&plugin=0&id=10094853&group=1&value=255"));
 }
 
 void MainWindow::cameraLeft()
 {
-    url->load(QUrl("http://192.168.1.11:8080/?action=command&dest=0&plugin=0&id=10094852&group=1&value=255"));
+    url->load(QUrl("http://192.168.1.106:8080/?action=command&dest=0&plugin=0&id=10094852&group=1&value=255"));
 }
 
 void MainWindow::cameraRight()
 {
-    url->load(QUrl("http://192.168.1.11:8080/?action=command&dest=0&plugin=0&id=10094852&group=1&value=-255"));
+    url->load(QUrl("http://192.168.1.106:8080/?action=command&dest=0&plugin=0&id=10094852&group=1&value=-255"));
 }
