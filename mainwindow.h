@@ -74,3 +74,4 @@ private:
     bool _robot_mode;
 };
 #endif // MAINWINDOW_H
+

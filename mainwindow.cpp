@@ -7,6 +7,7 @@
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
+
     this->grabKeyboard();
     _forward = false;
     _backward = false;
